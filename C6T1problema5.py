@@ -24,10 +24,7 @@ class Campo:
     secciones: list = field(default_factory=list)
 
 
-# ---------------------------------------------------------------------------
-# FUNCION: lee humedad del suelo por seccion desde consola (simula sensores)
-# Retorna los datos sin modificar ningun objeto
-# ---------------------------------------------------------------------------
+# funcion que lee humedad del suelo por seccion desde consola 
 def leer_sensores_humedad(secciones: list[Seccion]) -> dict[str, float]:
     print("\n  -- Lectura de sensores de humedad --")
     lecturas = {}
@@ -36,11 +33,7 @@ def leer_sensores_humedad(secciones: list[Seccion]) -> dict[str, float]:
         lecturas[s.nombre] = h
     return lecturas
 
-
-# ---------------------------------------------------------------------------
-# FUNCION: consulta prevision meteorologica ingresada por el usuario
-# Retorna un diccionario con las condiciones climaticas previstas
-# ---------------------------------------------------------------------------
+# fucnion que  consulta prevision meteorologica ingresada por el usuario
 def consultar_prevision_meteorologica() -> dict:
     print("\n  -- Prevision meteorologica --")
     lluvia    = leer_float("  Lluvia prevista (mm): ", 0)
@@ -52,11 +45,7 @@ def consultar_prevision_meteorologica() -> dict:
         "humedad_amb": humedad_a,
     }
 
-
-# ---------------------------------------------------------------------------
-# PROCEDIMIENTO: calcula la cantidad optima de riego y actualiza cada seccion
-# Modifica seccion.humedad y seccion.agua_asignada — efecto de lado explicito
-# ---------------------------------------------------------------------------
+# funcion que calcula la cantidad optima de riego y actualiza cada seccion modifica seccion.humedad y seccion.agua_asignada — efecto de lado explicito
 def calcular_riego_optimo(campo: Campo, lecturas: dict[str, float],
                            prevision: dict, cultivo: Cultivo,
                            litros_por_punto: float) -> None:
@@ -87,10 +76,7 @@ def calcular_riego_optimo(campo: Campo, lecturas: dict[str, float],
         print(f"  {s.nombre:<14}: {s.agua_asignada:>7.2f} L  ({motivo})")
 
 
-# ---------------------------------------------------------------------------
-# FUNCION: determina el estado de cada valvula segun el agua asignada
-# No modifica nada; retorna las acciones a tomar por seccion
-# ---------------------------------------------------------------------------
+#funcion quedetermina el estado de cada valvula segun el agua asignada
 def controlar_valvulas(secciones: list[Seccion]) -> dict[str, str]:
     acciones = {}
     for s in secciones:
