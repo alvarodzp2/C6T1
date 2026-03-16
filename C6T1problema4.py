@@ -62,9 +62,7 @@ def analizar_rendimiento(maquinas: list[Maquina], demanda: float) -> dict:
         "demanda"         : demanda,
         "cobertura_pct"   : round(cobertura, 2),
     }
-# PROCEDIMIENTO: ajusta la programacion de produccion segun la demanda
-# Modifica fabrica.programa — efecto de lado explicito
-# ---------------------------------------------------------------------------
+# funcion que ajusta la programacion de produccion segun la demanda
 def ajustar_programacion(fabrica: Fabrica, demanda: float) -> None:
     fabrica.programa.clear()
     activas = [m for m in fabrica.maquinas if not m.en_mantenimiento]
