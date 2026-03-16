@@ -9,21 +9,17 @@
 
 ```
 /
-├── problema1_edificio.py
-├── problema2_inventario.py
-├── problema3_vehiculo_autonomo.py
-├── problema4_fabrica.py
-├── problema5_riego.py
+├── C6T1problema1.py
+├── C6T1problema2.py
+├── C6T1problema3.py
+├── C6T1problema4.py
+├── C6T1problema5.py
 └── README.md
 ```
 
 ---
 
 ## Problema 1: Control de Temperatura en un Edificio Inteligente
-
-**Archivo:** `problema1_edificio.py`
-
-El sistema simula el control climatico de un edificio con multiples zonas. Cada zona tiene su propio sensor, calcula su temperatura optima y recibe senales de ajuste.
 
 ### Funciones y su rol
 
@@ -35,17 +31,7 @@ El sistema simula el control climatico de un edificio con multiples zonas. Cada 
 | `registrar_consumo()` | Funcion | Acumula el consumo en kWh y agrega un registro al historial de la zona. |
 | `generar_reporte_consumo()` | Funcion | Recorre todas las zonas y muestra consumo total y promedio por ciclo. |
 
-### Impacto en rendimiento
-
-Separar `calcular_temperatura_optima()` de `enviar_senal_ajuste()` permite recalcular el objetivo sin activar el hardware. Esto evita ciclos de ajuste innecesarios cuando la diferencia es menor a 0.5 C. `registrar_consumo()` usa una lista como acumulador de O(1) por insercion, lo que mantiene el historial sin costo significativo incluso con muchos ciclos simulados.
-
----
-
 ## Problema 2: Gestion de Inventario en un Almacen
-
-**Archivo:** `problema2_inventario.py`
-
-Sistema interactivo de inventario con menu de consola. Registra entradas y salidas, calcula niveles optimos y genera alertas automaticas.
 
 ### Funciones y su rol
 
@@ -56,17 +42,9 @@ Sistema interactivo de inventario con menu de consola. Registra entradas y salid
 | `calcular_nivel_optimo()` | Procedimiento | Calcula el punto medio entre stock minimo y maximo y muestra cuanto hay que pedir. Modifica la salida pero no el objeto. |
 | `generar_alertas()` | Funcion | Recorre todos los productos y clasifica cada uno como SIN STOCK, BAJO, EXCESO o NORMAL. Retorna el conteo de alertas. |
 
-### Impacto en rendimiento
-
-Separar `registrar_entrada()` y `registrar_salida()` en dos funciones independientes permite validar stock disponible unicamente en la salida, sin ejecutar esa logica en entradas. `generar_alertas()` hace un unico recorrido O(N) sobre todos los productos, lo que escala linealmente con el tamano del inventario.
-
 ---
 
 ## Problema 3: Sistema de Navegacion para un Vehiculo Autonomo
-
-**Archivo:** `problema3_vehiculo_autonomo.py`
-
-Sistema que planifica la ruta optima entre nodos usando Dijkstra, lee datos de sensores y ajusta la velocidad segun obstaculos y congestion.
 
 ### Funciones y su rol
 
@@ -85,10 +63,6 @@ Dijkstra en `calcular_ruta_optima()` corre en O(N²) con la implementacion de co
 
 ## Problema 4: Optimizacion de la Produccion en una Fabrica
 
-**Archivo:** `problema4_fabrica.py`
-
-Sistema que monitorea maquinas, programa mantenimiento preventivo, analiza rendimiento y distribuye la carga de produccion segun la demanda.
-
 ### Funciones y su rol
 
 | Funcion / Procedimiento | Tipo | Descripcion |
@@ -106,10 +80,6 @@ Sistema que monitorea maquinas, programa mantenimiento preventivo, analiza rendi
 
 ## Problema 5: Sistema de Riego Automatizado para Agricultura
 
-**Archivo:** `problema5_riego.py`
-
-Sistema que combina lectura de sensores de humedad y prevision meteorologica para calcular cuanta agua necesita cada seccion del campo y controlar las valvulas.
-
 ### Funciones y su rol
 
 | Funcion / Procedimiento | Tipo | Descripcion |
@@ -122,8 +92,6 @@ Sistema que combina lectura de sensores de humedad y prevision meteorologica par
 ### Impacto en rendimiento
 
 Separar `leer_sensores_humedad()` y `consultar_prevision_meteorologica()` del calculo permite actualizar cualquiera de las dos fuentes de datos de forma independiente sin reejecutar el sistema completo. `calcular_riego_optimo()` concentra toda la logica de negocio en un procedimiento, lo que hace que cambiar la formula de riego no afecte la lectura de sensores ni el control de valvulas. `controlar_valvulas()` al ser una funcion pura puede ejecutarse multiples veces con los mismos datos sin efectos secundarios.
-
----
 
 ## Principios aplicados en todos los problemas
 
